@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 数据分析 | 一个迷失了好久的🐑</title>
+  <title>numpy基础 | 一个迷失了好久的🐑</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个迷失了好久的羊">
-<meta name="keywords" content="python、go">
-<meta property="og:type" content="website">
-<meta property="og:title" content="一个迷失了好久的🐑">
-<meta property="og:url" content="http://yoursite.com/tags/数据分析/index.html">
+  <meta name="description" content="1. numpy使用与属性使用numpy首先要导入模块： 1import numpy as np #为了方便使用numpy 采用np简写">
+<meta name="keywords" content="数据分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="numpy基础">
+<meta property="og:url" content="http://yoursite.com/2018/04/numpy基础/index.html">
 <meta property="og:site_name" content="一个迷失了好久的🐑">
-<meta property="og:description" content="一个迷失了好久的羊">
+<meta property="og:description" content="1. numpy使用与属性使用numpy首先要导入模块： 1import numpy as np #为了方便使用numpy 采用np简写">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-26T09:14:29.445Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一个迷失了好久的🐑">
-<meta name="twitter:description" content="一个迷失了好久的羊">
+<meta name="twitter:title" content="numpy基础">
+<meta name="twitter:description" content="1. numpy使用与属性使用numpy首先要导入模块： 1import numpy as np #为了方便使用numpy 采用np简写">
   
   
     <link rel="icon" href="/favicon.png">
@@ -148,36 +149,206 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-numpy基础" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/numpy基础/" class="archive-article-date">
-  	<time datetime="2018-04-26T08:52:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-26</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/numpy基础/">numpy基础</a>
+    <h1 class="article-title" itemprop="name">
+      numpy基础
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/04/numpy基础/" class="archive-article-date">
+  	<time datetime="2018-04-26T08:52:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-26</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-numpy使用与属性"><a href="#1-numpy使用与属性" class="headerlink" title="1. numpy使用与属性"></a>1. <code>numpy</code>使用与属性</h2><p>使用<code>numpy</code>首先要导入模块：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np <span class="comment">#为了方便使用numpy 采用np简写</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>列表转矩阵：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">array = np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]])  <span class="comment">#列表转化为矩阵</span></span><br><span class="line">print(array)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">[[1, 2, 3],</span></span><br><span class="line"><span class="string">[2, 3, 4]]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<p>numpy三种常见属性：</p>
+<ul>
+<li><code>ndim</code>：维度</li>
+<li><code>shape</code>：行数和列数</li>
+<li><code>size</code>：元素个数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'number of dim:'</span>,array.ndim)  <span class="comment"># 维度</span></span><br><span class="line"><span class="comment"># number of dim: 2</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">'shape :'</span>,array.shape)    <span class="comment"># 行数和列数</span></span><br><span class="line"><span class="comment"># shape : (2, 3)</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">'size:'</span>,array.size)   <span class="comment"># 元素个数</span></span><br><span class="line"><span class="comment"># size: 6</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-numpy创建array"><a href="#2-numpy创建array" class="headerlink" title="2. numpy创建array"></a>2. <code>numpy</code>创建<code>array</code></h2><ul>
+<li><code>array</code>：创建数组</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = np.array([2,23,4])  # list 1d</span><br><span class="line">print(a)</span><br><span class="line"># [2 23 4]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>dtype</code>：指定数据类型</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">a = np.array([<span class="number">2</span>,<span class="number">23</span>,<span class="number">4</span>],dtype=np.int)</span><br><span class="line">print(a.dtype)</span><br><span class="line"><span class="comment"># int64</span></span><br><span class="line"></span><br><span class="line">a = np.array([<span class="number">2</span>,<span class="number">23</span>,<span class="number">4</span>],dtype=np.int32)</span><br><span class="line">print(a.dtype)</span><br><span class="line"><span class="comment"># int32</span></span><br><span class="line"></span><br><span class="line">a = np.array([<span class="number">2</span>,<span class="number">23</span>,<span class="number">4</span>],dtype=np.float)</span><br><span class="line">print(a.dtype)</span><br><span class="line"><span class="comment"># float64</span></span><br><span class="line"></span><br><span class="line">a = np.array([<span class="number">2</span>,<span class="number">23</span>,<span class="number">4</span>],dtype=np.float32)</span><br><span class="line">print(a.dtype)</span><br><span class="line"><span class="comment"># float32</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>zeros</code>：创建全0数组</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = np.zeros((<span class="number">3</span>,<span class="number">4</span>)) <span class="comment"># 数据全为0，3行4列</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">	[[ 0.,  0.,  0.,  0.],</span></span><br><span class="line"><span class="string">       [ 0.,  0.,  0.,  0.],</span></span><br><span class="line"><span class="string">       [ 0.,  0.,  0.,  0.]]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>ones</code>：创建全1数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = np.ones((<span class="number">3</span>,<span class="number">4</span>),dtype = np.int)   <span class="comment"># 数据为1，3行4列</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">	 [[1, 1, 1, 1],</span></span><br><span class="line"><span class="string">       [1, 1, 1, 1],</span></span><br><span class="line"><span class="string">       [1, 1, 1, 1]]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>eye</code>:创建单位矩阵</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">np.eye(<span class="number">3</span>)</span><br><span class="line"><span class="comment">#[[ 1.  0.  0.]</span></span><br><span class="line"><span class="comment"># [ 0.  1.  0.]</span></span><br><span class="line"><span class="comment"># [ 0.  0.  1.]]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>empty</code>：创建数据接近0</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a = np.empty((<span class="number">3</span>,<span class="number">4</span>)) <span class="comment"># 数据为empty，3行4列</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">	[[  0.00000000e+000,   4.94065646e-324,   9.88131292e-324,</span></span><br><span class="line"><span class="string">          1.48219694e-323],</span></span><br><span class="line"><span class="string">       [  1.97626258e-323,   2.47032823e-323,   2.96439388e-323,</span></span><br><span class="line"><span class="string">          3.45845952e-323],</span></span><br><span class="line"><span class="string">       [  3.95252517e-323,   4.44659081e-323,   4.94065646e-323,</span></span><br><span class="line"><span class="string">          5.43472210e-323]]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>arrange</code>：按指定范围创建数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = np.arange(<span class="number">10</span>,<span class="number">20</span>,<span class="number">2</span>) <span class="comment"># 10-19 的数据，2步长</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">[10, 12, 14, 16, 18]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>linspace</code>：创建线段型数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = np.linspace(<span class="number">1</span>,<span class="number">10</span>,<span class="number">20</span>)    <span class="comment"># 开始端1，结束端10，且分割成20个数据，生成线段</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">	[  1.        ,   1.47368421,   1.94736842,   2.42105263,</span></span><br><span class="line"><span class="string">         2.89473684,   3.36842105,   3.84210526,   4.31578947,</span></span><br><span class="line"><span class="string">         4.78947368,   5.26315789,   5.73684211,   6.21052632,</span></span><br><span class="line"><span class="string">         6.68421053,   7.15789474,   7.63157895,   8.10526316,</span></span><br><span class="line"><span class="string">         8.57894737,   9.05263158,   9.52631579,  10.        ]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>reshape</code> 改变数据的形状</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = np.arange(<span class="number">12</span>).reshape((<span class="number">3</span>,<span class="number">4</span>))    <span class="comment"># 3行4列，0到11</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">array([[ 0,  1,  2,  3],</span></span><br><span class="line"><span class="string">       [ 4,  5,  6,  7],</span></span><br><span class="line"><span class="string">       [ 8,  9, 10, 11]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-numpy基础运算"><a href="#3-numpy基础运算" class="headerlink" title="3. numpy基础运算"></a>3. <code>numpy</code>基础运算</h2><h3 id="3-1-一维数组计算"><a href="#3-1-一维数组计算" class="headerlink" title="3.1 一维数组计算"></a>3.1 一维数组计算</h3><p>假设：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a=np.array([<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>,<span class="number">40</span>])   <span class="comment"># array([10, 20, 30, 40])</span></span><br><span class="line">b=np.arange(<span class="number">4</span>)              <span class="comment"># array([0, 1, 2, 3])</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>矩阵减法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c=a-b  <span class="comment"># array([10, 19, 28, 37])</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>矩阵加法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c=a+b   <span class="comment"># array([10, 21, 32, 43])</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>矩阵点乘</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c=a*b   <span class="comment"># array([  0,  20,  60, 120])</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>矩阵元素的乘方</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c=b**<span class="number">2</span>  <span class="comment"># array([0, 1, 4, 9])</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>三角函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c=<span class="number">10</span>*np.sin(a)  </span><br><span class="line"><span class="comment"># array([-5.44021111,  9.12945251, -9.88031624,  7.4511316 ])</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>矩阵元素逻辑判断</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(b&lt;<span class="number">3</span>)   <span class="comment"># 返回一个布尔类型的矩阵</span></span><br><span class="line"><span class="comment"># array([ True,  True,  True, False], dtype=bool)</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-2-多维数组运算"><a href="#3-2-多维数组运算" class="headerlink" title="3.2 多维数组运算"></a>3.2 多维数组运算</h3><p>假设：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a=np.array([[<span class="number">1</span>,<span class="number">2</span>],[<span class="number">3</span>,<span class="number">3</span>]])</span><br><span class="line">b=np.arange(<span class="number">4</span>).reshape((<span class="number">2</span>,<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>矩阵乘法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">c_dot = np.dot(a,b)</span><br><span class="line"><span class="comment"># [[ 4  7]</span></span><br><span class="line"><span class="comment">#  [ 6 12]]</span></span><br><span class="line"></span><br><span class="line">c_dot_2 = a.dot(b)</span><br><span class="line"><span class="comment"># [[ 4  7]</span></span><br><span class="line"><span class="comment">#  [ 6 12]]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>矩阵转置</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(np.transpose(a))    </span><br><span class="line">print(a.T)</span><br><span class="line"><span class="comment"># [[1 3]</span></span><br><span class="line"><span class="comment">#  [2 3]]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>元素之和、最大值、最小值</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">np.sum(a)   <span class="comment"># 9</span></span><br><span class="line">np.min(a)   <span class="comment"># 1</span></span><br><span class="line">np.max(a)   <span class="comment"># 3</span></span><br><span class="line"></span><br><span class="line">np.sum(a,axis=<span class="number">1</span>)  <span class="comment"># 按第1维度(二维情况为行)进行相加  [3 6]</span></span><br><span class="line">np.sum(a,axis=<span class="number">0</span>)  <span class="comment"># 按第0维度(二维情况为列)进行相加  [4 5]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>元素最大最小索引</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">np.argmin(a)   <span class="comment"># 0</span></span><br><span class="line">np.argmax(a)   <span class="comment"># 2</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>元素均值</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">np.mean(a)      <span class="comment"># 2.25</span></span><br><span class="line">np.average(a)     <span class="comment"># 2.25</span></span><br><span class="line">a.mean()   <span class="comment"># 2.25</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>元素中位数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(np.median(a))       # 2.5</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-其他一些基本操作"><a href="#3-3-其他一些基本操作" class="headerlink" title="3.3 其他一些基本操作"></a>3.3 其他一些基本操作</h3><ul>
+<li>累加运算</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(np.cumsum(a))   # [1 3 6 9]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>累差运算</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(np.diff(a))   </span><br><span class="line">#[[1]</span><br><span class="line"># [0]]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>排序</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">A = np.arange(14,2, -1).reshape((3,4)) </span><br><span class="line"></span><br><span class="line"># array([[14, 13, 12, 11],</span><br><span class="line">#       [10,  9,  8,  7],</span><br><span class="line">#       [ 6,  5,  4,  3]])</span><br><span class="line"></span><br><span class="line">print(np.sort(A))    </span><br><span class="line"></span><br><span class="line"># array([[11,12,13,14]</span><br><span class="line">#        [ 7, 8, 9,10]</span><br><span class="line">#        [ 3, 4, 5, 6]])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>元素上下限设置</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(np.clip(a,2,3))</span><br><span class="line"></span><br><span class="line">#[[2 2]</span><br><span class="line"># [3 3]]</span><br></pre></td></tr></table></figure>
+<h2 id="4-numpy索引"><a href="#4-numpy索引" class="headerlink" title="4. numpy索引"></a>4. numpy索引</h2><h3 id="4-1-一维索引"><a href="#4-1-一维索引" class="headerlink" title="4.1. 一维索引"></a>4.1. 一维索引</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">A = np.arange(<span class="number">3</span>,<span class="number">15</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># array([3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])</span></span><br><span class="line">         </span><br><span class="line">print(A[<span class="number">3</span>])    <span class="comment"># 6</span></span><br></pre></td></tr></table></figure>
+<p>若矩阵为二维呢?</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">A = np.arange(<span class="number">3</span>,<span class="number">15</span>).reshape((<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">array([[ 3,  4,  5,  6]</span></span><br><span class="line"><span class="string">       [ 7,  8,  9, 10]</span></span><br><span class="line"><span class="string">       [11, 12, 13, 14]])</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">         </span><br><span class="line">print(A[<span class="number">2</span>])         </span><br><span class="line"><span class="comment"># [11 12 13 14]</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-2-二维索引"><a href="#4-2-二维索引" class="headerlink" title="4.2. 二维索引"></a>4.2. 二维索引</h3><ul>
+<li>上述二维的情况下，获取单个元素的时候，索引如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(A[1][1])      # 8</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>切片</strong>获取第二行中间两个元素</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(A[1, 1:3])    # [8 9]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>for循环时输出为按行输出</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> A:</span><br><span class="line">    print(row)</span><br><span class="line"><span class="string">"""    </span></span><br><span class="line"><span class="string">[ 3,  4,  5, 6]</span></span><br><span class="line"><span class="string">[ 7,  8,  9, 10]</span></span><br><span class="line"><span class="string">[11, 12, 13, 14]</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 若需按列</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> column <span class="keyword">in</span> A.T:</span><br><span class="line">    print(column)</span><br><span class="line"><span class="string">"""  </span></span><br><span class="line"><span class="string">[ 3,  7,  11]</span></span><br><span class="line"><span class="string">[ 4,  8,  12]</span></span><br><span class="line"><span class="string">[ 5,  9,  13]</span></span><br><span class="line"><span class="string">[ 6, 10,  14]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>迭代为一维后输出</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">A = np.arange(<span class="number">3</span>,<span class="number">15</span>).reshape((<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line">         </span><br><span class="line">print(A.flatten())   </span><br><span class="line"><span class="comment"># array([3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> A.flat:</span><br><span class="line">    print(item)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line">……</span><br><span class="line"><span class="comment"># 14</span></span><br></pre></td></tr></table></figure>
+<h2 id="5-numpy-array合并"><a href="#5-numpy-array合并" class="headerlink" title="5. numpy array合并"></a>5. <code>numpy array</code>合并</h2><ul>
+<li><code>np.vstack()</code> 上下合并   按第0维合并</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">A = np.array([<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>])</span><br><span class="line">B = np.array([<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>])</span><br><span class="line">         </span><br><span class="line">print(np.vstack((A,B)))    <span class="comment"># vertical stack</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">[[1,1,1]</span></span><br><span class="line"><span class="string"> [2,2,2]]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>np.hstack()</code> 左右合并</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">D = np.hstack((A,B))       <span class="comment"># horizontal stack</span></span><br><span class="line"></span><br><span class="line">print(D)</span><br><span class="line"><span class="comment"># [1,1,1,2,2,2]</span></span><br><span class="line"></span><br><span class="line">print(A.shape,D.shape)</span><br><span class="line"><span class="comment"># (3,) (6,)</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>np.newaxis()</code>  一维转多维</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">print(A[np.newaxis,:])</span><br><span class="line"># [[1 1 1]]</span><br><span class="line"></span><br><span class="line">print(A[np.newaxis,:].shape)</span><br><span class="line"># (1,3)</span><br><span class="line"></span><br><span class="line">print(A[:,np.newaxis])</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">[[1]</span><br><span class="line">[1]</span><br><span class="line">[1]]</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">print(A[:,np.newaxis].shape)</span><br><span class="line"># (3,1)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>np.concatenate()</code> 矩阵拼接</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">C = np.concatenate((A,B,B,A),axis=0)</span><br><span class="line"></span><br><span class="line">print(C)</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">array([[1],</span><br><span class="line">       [1],</span><br><span class="line">       [1],</span><br><span class="line">       [2],</span><br><span class="line">       [2],</span><br><span class="line">       [2],</span><br><span class="line">       [2],</span><br><span class="line">       [2],</span><br><span class="line">       [2],</span><br><span class="line">       [1],</span><br><span class="line">       [1],</span><br><span class="line">       [1]])</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">D = np.concatenate((A,B,B,A),axis=1)</span><br><span class="line"></span><br><span class="line">print(D)</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">array([[1, 2, 2, 1],</span><br><span class="line">       [1, 2, 2, 1],</span><br><span class="line">       [1, 2, 2, 1]])</span><br><span class="line">&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="6-numpy-array分割"><a href="#6-numpy-array分割" class="headerlink" title="6. numpy array分割"></a>6. <code>numpy array</code>分割</h2><p>假设</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">A = np.arange(<span class="number">12</span>).reshape((<span class="number">3</span>, <span class="number">4</span>))</span><br><span class="line">print(A)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">array([[ 0,  1,  2,  3],</span></span><br><span class="line"><span class="string">    [ 4,  5,  6,  7],</span></span><br><span class="line"><span class="string">    [ 8,  9, 10, 11]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>纵向分割</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">print(np.split(A, <span class="number">2</span>, axis=<span class="number">1</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">[array([[0, 1],</span></span><br><span class="line"><span class="string">        [4, 5],</span></span><br><span class="line"><span class="string">        [8, 9]]), array([[ 2,  3],</span></span><br><span class="line"><span class="string">        [ 6,  7],</span></span><br><span class="line"><span class="string">        [10, 11]])]</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">print(np.hsplit(A, <span class="number">2</span>)) <span class="comment">#等于 print(np.split(A, 2, axis=1))</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>横向分割</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(np.split(A, <span class="number">3</span>, axis=<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># [array([[0, 1, 2, 3]]), array([[4, 5, 6, 7]]), array([[ 8,  9, 10, 11]])]</span></span><br><span class="line"></span><br><span class="line">print(np.vsplit(A, <span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>错误的分割</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(np.split(A, 3, axis=1))  # 只能等量对分</span><br><span class="line"></span><br><span class="line"># ValueError: array split does not result in an equal division</span><br></pre></td></tr></table></figure>
+<ul>
+<li>不等量的分割<code>np.array_split()</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">print(np.array_split(A, 3, axis=1))</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">[array([[0, 1],</span><br><span class="line">        [4, 5],</span><br><span class="line">        [8, 9]]), array([[ 2],</span><br><span class="line">        [ 6],</span><br><span class="line">        [10]]), array([[ 3],</span><br><span class="line">        [ 7],</span><br><span class="line">        [11]])]</span><br><span class="line">&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -189,19 +360,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/04/numpy基础/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/04/github内容汇总/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">github内容汇总</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -224,9 +482,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: false,
