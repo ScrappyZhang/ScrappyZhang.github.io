@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>MYSQL数据库行列旋转 | 一个迷失了好久的🐑</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="用case when 语法实现行转列假如有如下数据表： 12345678910111213141516171819202122create table week_income(    employee varchar(10),    weekname varchar(10),    income int);insert into week_incomeselect &amp;apos;張三&amp;apos;,&amp;">
+  <meta name="description" content="用case when 语法实现行转列">
 <meta name="keywords" content="数据库,mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MYSQL数据库行列旋转">
 <meta property="og:url" content="http://yoursite.com/2018/04/MYSQL数据库行列旋转/index.html">
 <meta property="og:site_name" content="一个迷失了好久的🐑">
-<meta property="og:description" content="用case when 语法实现行转列假如有如下数据表： 12345678910111213141516171819202122create table week_income(    employee varchar(10),    weekname varchar(10),    income int);insert into week_incomeselect &amp;apos;張三&amp;apos;,&amp;">
+<meta property="og:description" content="用case when 语法实现行转列">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-27T01:20:06.744Z">
+<meta property="og:updated_time" content="2018-04-27T01:22:59.900Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MYSQL数据库行列旋转">
-<meta name="twitter:description" content="用case when 语法实现行转列假如有如下数据表： 12345678910111213141516171819202122create table week_income(    employee varchar(10),    weekname varchar(10),    income int);insert into week_incomeselect &amp;apos;張三&amp;apos;,&amp;">
+<meta name="twitter:description" content="用case when 语法实现行转列">
   
   
     <link rel="icon" href="/favicon.png">
@@ -172,7 +172,8 @@
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="用case-when-语法实现行转列"><a href="#用case-when-语法实现行转列" class="headerlink" title="用case when 语法实现行转列"></a>用case when 语法实现行转列</h2><p>假如有如下数据表：</p>
+        <h2 id="用case-when-语法实现行转列"><a href="#用case-when-语法实现行转列" class="headerlink" title="用case when 语法实现行转列"></a>用case when 语法实现行转列</h2><a id="more"></a>
+<p>假如有如下数据表：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">create table week_income</span><br><span class="line">(</span><br><span class="line">    employee varchar(10),</span><br><span class="line">    weekname varchar(10),</span><br><span class="line">    income int</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">insert into week_income</span><br><span class="line">select &apos;張三&apos;,&apos;星期一&apos;,1000 union all</span><br><span class="line">select &apos;張三&apos;,&apos;星期二&apos;,2000 union all</span><br><span class="line">select &apos;張三&apos;,&apos;星期三&apos;,1500 union all</span><br><span class="line">select &apos;張三&apos;,&apos;星期四&apos;,2000 union all</span><br><span class="line">select &apos;張三&apos;,&apos;星期五&apos;,3000 union all</span><br><span class="line">select &apos;張三&apos;,&apos;星期六&apos;,4000 union all</span><br><span class="line">select &apos;張三&apos;,&apos;星期日&apos;,5000 union all</span><br><span class="line">select &apos;李四&apos;,&apos;星期一&apos;,1000 union all</span><br><span class="line">select &apos;李四&apos;,&apos;星期二&apos;,2000 union all</span><br><span class="line">select &apos;李四&apos;,&apos;星期三&apos;,1500 union all</span><br><span class="line">select &apos;李四&apos;,&apos;星期四&apos;,2000 union all</span><br><span class="line">select &apos;李四&apos;,&apos;星期五&apos;,3000 union all</span><br><span class="line">select &apos;李四&apos;,&apos;星期六&apos;,4000 union all</span><br><span class="line">select &apos;李四&apos;,&apos;星期日&apos;,8000 ;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">+----------+-----------+--------+</span><br><span class="line">| employee | weekname  | income |</span><br><span class="line">+----------+-----------+--------+</span><br><span class="line">| 張三     | 星期一    |   1000 |</span><br><span class="line">| 張三     | 星期二    |   2000 |</span><br><span class="line">| 張三     | 星期三    |   1500 |</span><br><span class="line">| 張三     | 星期四    |   2000 |</span><br><span class="line">| 張三     | 星期五    |   3000 |</span><br><span class="line">| 張三     | 星期六    |   4000 |</span><br><span class="line">| 張三     | 星期日    |   5000 |</span><br><span class="line">| 李四     | 星期一    |   1000 |</span><br><span class="line">| 李四     | 星期二    |   2000 |</span><br><span class="line">| 李四     | 星期三    |   1500 |</span><br><span class="line">| 李四     | 星期四    |   2000 |</span><br><span class="line">| 李四     | 星期五    |   3000 |</span><br><span class="line">| 李四     | 星期六    |   4000 |</span><br><span class="line">| 李四     | 星期日    |   8000 |</span><br><span class="line">+----------+-----------+--------+</span><br></pre></td></tr></table></figure>
 <p>用case when 语法实现行转列</p>
@@ -401,11 +402,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
               <li class="article-tag-list-item">
