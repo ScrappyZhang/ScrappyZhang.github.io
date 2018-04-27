@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018 | 一个迷失了好久的🐑</title>
+  <title>MYSQL数据库行列旋转 | 一个迷失了好久的🐑</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个迷失了好久的羊">
-<meta name="keywords" content="python、go">
-<meta property="og:type" content="website">
-<meta property="og:title" content="一个迷失了好久的🐑">
-<meta property="og:url" content="http://yoursite.com/archives/2018/index.html">
+  <meta name="description" content="用case when 语法实现行转列假如有如下数据表： 12345678910111213141516171819202122create table week_income(    employee varchar(10),    weekname varchar(10),    income int);insert into week_incomeselect &amp;apos;張三&amp;apos;,&amp;">
+<meta name="keywords" content="数据库,mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MYSQL数据库行列旋转">
+<meta property="og:url" content="http://yoursite.com/2018/04/MYSQL数据库行列旋转/index.html">
 <meta property="og:site_name" content="一个迷失了好久的🐑">
-<meta property="og:description" content="一个迷失了好久的羊">
+<meta property="og:description" content="用case when 语法实现行转列假如有如下数据表： 12345678910111213141516171819202122create table week_income(    employee varchar(10),    weekname varchar(10),    income int);insert into week_incomeselect &amp;apos;張三&amp;apos;,&amp;">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-27T01:20:06.744Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一个迷失了好久的🐑">
-<meta name="twitter:description" content="一个迷失了好久的羊">
+<meta name="twitter:title" content="MYSQL数据库行列旋转">
+<meta name="twitter:description" content="用case when 语法实现行转列假如有如下数据表： 12345678910111213141516171819202122create table week_income(    employee varchar(10),    weekname varchar(10),    income int);insert into week_incomeselect &amp;apos;張三&amp;apos;,&amp;">
   
   
     <link rel="icon" href="/favicon.png">
@@ -148,36 +149,43 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-MYSQL数据库行列旋转" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/MYSQL数据库行列旋转/" class="archive-article-date">
-  	<time datetime="2018-04-27T00:51:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-27</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/MYSQL数据库行列旋转/">MYSQL数据库行列旋转</a>
+    <h1 class="article-title" itemprop="name">
+      MYSQL数据库行列旋转
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/04/MYSQL数据库行列旋转/" class="archive-article-date">
+  	<time datetime="2018-04-27T00:51:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-27</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="用case-when-语法实现行转列"><a href="#用case-when-语法实现行转列" class="headerlink" title="用case when 语法实现行转列"></a>用case when 语法实现行转列</h2><p>假如有如下数据表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">create table week_income</span><br><span class="line">(</span><br><span class="line">    employee varchar(10),</span><br><span class="line">    weekname varchar(10),</span><br><span class="line">    income int</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">insert into week_income</span><br><span class="line">select &apos;張三&apos;,&apos;星期一&apos;,1000 union all</span><br><span class="line">select &apos;張三&apos;,&apos;星期二&apos;,2000 union all</span><br><span class="line">select &apos;張三&apos;,&apos;星期三&apos;,1500 union all</span><br><span class="line">select &apos;張三&apos;,&apos;星期四&apos;,2000 union all</span><br><span class="line">select &apos;張三&apos;,&apos;星期五&apos;,3000 union all</span><br><span class="line">select &apos;張三&apos;,&apos;星期六&apos;,4000 union all</span><br><span class="line">select &apos;張三&apos;,&apos;星期日&apos;,5000 union all</span><br><span class="line">select &apos;李四&apos;,&apos;星期一&apos;,1000 union all</span><br><span class="line">select &apos;李四&apos;,&apos;星期二&apos;,2000 union all</span><br><span class="line">select &apos;李四&apos;,&apos;星期三&apos;,1500 union all</span><br><span class="line">select &apos;李四&apos;,&apos;星期四&apos;,2000 union all</span><br><span class="line">select &apos;李四&apos;,&apos;星期五&apos;,3000 union all</span><br><span class="line">select &apos;李四&apos;,&apos;星期六&apos;,4000 union all</span><br><span class="line">select &apos;李四&apos;,&apos;星期日&apos;,8000 ;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">+----------+-----------+--------+</span><br><span class="line">| employee | weekname  | income |</span><br><span class="line">+----------+-----------+--------+</span><br><span class="line">| 張三     | 星期一    |   1000 |</span><br><span class="line">| 張三     | 星期二    |   2000 |</span><br><span class="line">| 張三     | 星期三    |   1500 |</span><br><span class="line">| 張三     | 星期四    |   2000 |</span><br><span class="line">| 張三     | 星期五    |   3000 |</span><br><span class="line">| 張三     | 星期六    |   4000 |</span><br><span class="line">| 張三     | 星期日    |   5000 |</span><br><span class="line">| 李四     | 星期一    |   1000 |</span><br><span class="line">| 李四     | 星期二    |   2000 |</span><br><span class="line">| 李四     | 星期三    |   1500 |</span><br><span class="line">| 李四     | 星期四    |   2000 |</span><br><span class="line">| 李四     | 星期五    |   3000 |</span><br><span class="line">| 李四     | 星期六    |   4000 |</span><br><span class="line">| 李四     | 星期日    |   8000 |</span><br><span class="line">+----------+-----------+--------+</span><br></pre></td></tr></table></figure>
+<p>用case when 语法实现行转列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">select employee as &apos;社員&apos;</span><br><span class="line">      ,sum(case weekname when &apos;星期一&apos; then income else 0 end) as &apos;星期一&apos;</span><br><span class="line">      ,sum(case weekname when &apos;星期二&apos; then income else 0 end) as &apos;星期二&apos;</span><br><span class="line">      ,sum(case weekname when &apos;星期三&apos; then income else 0 end) as &apos;星期三&apos;</span><br><span class="line">      ,sum(case weekname when &apos;星期四&apos; then income else 0 end) as &apos;星期四&apos;</span><br><span class="line">      ,sum(case weekname when &apos;星期五&apos; then income else 0 end) as &apos;星期五&apos;</span><br><span class="line">      ,sum(case weekname when &apos;星期六&apos; then income else 0 end) as &apos;星期六&apos;</span><br><span class="line">      ,sum(case weekname when &apos;星期日&apos; then income else 0 end) as &apos;星期日&apos;                              </span><br><span class="line">from week_income</span><br><span class="line">group by employee;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+--------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+</span><br><span class="line">| 社員   | 星期一    | 星期二    | 星期三    | 星期四    | 星期五    | 星期六    | 星期日    |</span><br><span class="line">+--------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+</span><br><span class="line">| 張三   |      1000 |      2000 |      1500 |      2000 |      3000 |      4000 |      5000 |</span><br><span class="line">| 李四   |      1000 |      2000 |      1500 |      2000 |      3000 |      4000 |      8000 |</span><br><span class="line">+--------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -193,137 +201,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/04/MYSQL数据库行列旋转/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/mongodb常见操作命令汇总/" class="archive-article-date">
-  	<time datetime="2018-04-27T00:24:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-27</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/04/mongodb常见操作命令汇总/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mongodb常见操作命令汇总</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/mongodb常见操作命令汇总/">mongodb常见操作命令汇总</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/numpy基础/" class="archive-article-date">
-  	<time datetime="2018-04-26T08:52:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/numpy基础/">numpy基础</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据分析</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/github内容汇总/" class="archive-article-date">
-  	<time datetime="2018-04-26T07:21:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/github内容汇总/">github内容汇总</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -346,8 +323,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
