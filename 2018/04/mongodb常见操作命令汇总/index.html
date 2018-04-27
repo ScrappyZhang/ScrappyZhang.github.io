@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="一个迷失了好久的🐑">
 <meta property="og:description" content="MongoDB常常用于爬虫等场景中，但命令只有常用才会记住，因此汇总命令，以便使用时快速查找。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-27T01:22:49.601Z">
+<meta property="og:updated_time" content="2018-04-27T08:29:55.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mongodb常见操作命令汇总">
 <meta name="twitter:description" content="MongoDB常常用于爬虫等场景中，但命令只有常用才会记住，因此汇总命令，以便使用时快速查找。">
@@ -423,6 +423,8 @@
 <h2 id="CSV导出"><a href="#CSV导出" class="headerlink" title="CSV导出"></a>CSV导出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongoexport -h [IP]:[port] -d [db] -c [collection] -u [user] -p [password] --type=csv -f [field1[,field2,field3,...]] &gt; [filename.csv]</span><br></pre></td></tr></table></figure>
 <p>导出文件过大时，会很耗时，可以分割成多个小文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">split -d -b 10G exported_data.csv   # 将exported_data.csv分割成10G大小的多个小文件，每个小文件的结尾以数字结尾</span><br></pre></td></tr></table></figure>
+<p>实例：将<code>meinian</code>数据库的<code>exam_info_train</code>里的<code>1815</code>和<code>300005</code>两个字段的数据导出并保存为<code>data_for_train.csv</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongoexport -h 127.0.0.1:27017 -d meinian -c exam_info_train <span class="comment">--type=csv -f 1815,300005 &gt; data_for_train.csv</span></span><br></pre></td></tr></table></figure>
 <h2 id="集合字段删除"><a href="#集合字段删除" class="headerlink" title="集合字段删除"></a>集合字段删除</h2><p>命令格式：</p>
 <p>db.collection.update(criteria,objNew,upsert,multi)</p>
 <p>参数说明：</p>
@@ -431,6 +433,7 @@
 <p>upsert：如果不存在update的记录，是否插入objNew这个新的文档，true为插入，默认为false，不插入。</p>
 <p>multi：默认是false，只更新找到的第一条记录。如果为true，把按条件查询出来的记录全部更新。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//例如要把User表中address字段删除</span><br><span class="line">db.User.update(&#123;&#125;,&#123;$unset:&#123;&apos;address&apos;:&apos;&apos;&#125;&#125;,false, true)</span><br></pre></td></tr></table></figure>
+<h2 id="查询某个字段存在的值的情况"><a href="#查询某个字段存在的值的情况" class="headerlink" title="查询某个字段存在的值的情况"></a>查询某个字段存在的值的情况</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.runCommand ( &#123; distinct: 集合名, key: 字段名 &#125; )</span><br></pre></td></tr></table></figure>
 
       
 
@@ -574,12 +577,22 @@
     	<div class="footer-left">
     		&copy; 2018 Scrappy Zhang
     	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
+      	// <div class="footer-right">
+      	// 	<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	// </div>
     </div>
+    <div calss="count-span">
+    <span id="busuanzi_container_site_pv">
+        总访问量: <span id="busuanzi_value_site_pv"></span>|
+    </span>
+    <span id="busuanzi_container_site_uv">
+        总访客: <span id="busuanzi_value_site_uv"></span>
+    </span>
+  </div>
   </div>
 </footer>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
     </div>
     <script>
 	var yiliaConfig = {
@@ -655,6 +668,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
@@ -663,15 +680,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">数据分析</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
             
             <div class="clearfix"></div>
