@@ -530,6 +530,645 @@
 
 
   
+    <article id="post-LightGBM所有参数含义汇总" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/LightGBM所有参数含义汇总/">【摘自官方文档】LightGBM所有参数含义汇总</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/LightGBM所有参数含义汇总/" class="archive-article-date">
+  	<time datetime="2018-05-07T00:49:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-07</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以下参数的default已经修改:</p>
+<ul>
+<li><code>min_data_in_leaf</code> = 100 =&gt; 20</li>
+<li><code>min_sum_hessian_in_leaf</code> = 10 =&gt; 1e-3</li>
+<li><code>num_leaves</code> = 127 =&gt; 31</li>
+<li><code>num_iterations</code> = 10 =&gt; 100</li>
+</ul>
+<h2 id="参数格式"><a href="#参数格式" class="headerlink" title="参数格式"></a>参数格式</h2><p>参数的格式为 <code>key1=value1 key2=value2 ...</code>. 并且, 在配置文件和命令行中均可以设置参数. 使用命令行设置参数时, 在 <code>=</code> 前后都不应该有空格. 使用配置文件设置参数时, 一行只能包含一个参数. 你可以使用 <code>#</code> 进行注释.</p>
+<p>如果一个参数在命令行和配置文件中均出现了, LightGBM 将会使用命令行中的该参数.</p>
+<h2 id="核心参数"><a href="#核心参数" class="headerlink" title="核心参数"></a>核心参数</h2><ul>
+<li><code>config</code>, default=<code>&quot;&quot;</code>, type=string, alias=<code>config_file</code><ul>
+<li>配置文件的路径</li>
+</ul>
+</li>
+<li><p><code>task</code>, default=<code>train</code>, type=enum, options=<code>train</code>,<code>predict</code>,<code>convert_model</code></p>
+<ul>
+<li><code>train</code>, alias=<code>training</code>, for training</li>
+<li><code>predict</code>, alias=<code>prediction</code>, <code>test</code>, for prediction.</li>
+<li><code>convert_model</code>, 要将模型文件转换成 if-else 格式, 可以查看这个链接获取更多信息 <a href="http://lightgbm.apachecn.org/cn/latest/Parameters.html#convert-model-parameters" target="_blank" rel="noopener">Convert model parameters</a></li>
+</ul>
+</li>
+<li><p><code>application</code>, default=<code>regression</code>, type=enum, options=<code>regression</code>,<code>regression_l1</code>,<code>huber</code>,<code>fair</code>,<code>poisson</code>,<code>quantile</code>,<code>quantile_l2</code>,<code>binary</code>,<code>multiclass</code>,<code>multiclassova</code>,<code>xentropy</code>,<code>xentlambda</code>,<code>lambdarank</code>, alias=<code>objective</code>,<code>app</code></p>
+<ul>
+<li>regression application<ul>
+<li><code>regression_l2</code>, L2 loss, alias=<code>regression</code>, <code>mean_squared_error</code>, <code>mse</code></li>
+<li><code>regression_l1</code>, L1 loss, alias=<code>mean_absolute_error</code>, <code>mae</code></li>
+<li><code>huber</code>, <a href="https://en.wikipedia.org/wiki/Huber_loss" target="_blank" rel="noopener">Huber loss</a></li>
+<li><code>fair</code>, <a href="https://www.kaggle.com/c/allstate-claims-severity/discussion/24520" target="_blank" rel="noopener">Fair loss</a></li>
+<li><code>poisson</code>, <a href="https://en.wikipedia.org/wiki/Poisson_regression" target="_blank" rel="noopener">Poisson regression</a></li>
+<li><code>quantile</code>, <a href="https://en.wikipedia.org/wiki/Quantile_regression" target="_blank" rel="noopener">Quantile regression</a></li>
+<li><code>quantile_l2</code>, 类似于 <code>quantile</code>, 但是使用了 L2 loss</li>
+</ul>
+</li>
+<li><code>binary</code>, binary <a href="https://www.kaggle.com/wiki/LogLoss" target="_blank" rel="noopener">log loss</a> classification application</li>
+<li>multi-class classification application<ul>
+<li><code>multiclass</code>, <a href="https://en.wikipedia.org/wiki/Softmax_function" target="_blank" rel="noopener">softmax</a> 目标函数, 应该设置好 <code>num_class</code></li>
+<li><code>multiclassova</code>, <a href="https://en.wikipedia.org/wiki/Multiclass_classification#One-vs.-rest" target="_blank" rel="noopener">One-vs-All</a> 二分类目标函数, 应该设置好 <code>num_class</code></li>
+</ul>
+</li>
+<li>cross-entropy application<ul>
+<li><code>xentropy</code>, 目标函数为 cross-entropy (同时有可选择的线性权重), alias=<code>cross_entropy</code></li>
+<li><code>xentlambda</code>, 替代参数化的 cross-entropy, alias=<code>cross_entropy_lambda</code></li>
+<li>标签是 [0, 1] 间隔内的任意值</li>
+</ul>
+</li>
+<li><code>lambdarank</code>,lambdarank application<ul>
+<li>在 lambdarank 任务中标签应该为 <code>int</code> type, 数值越大代表相关性越高 (e.g. 0:bad, 1:fair, 2:good, 3:perfect)</li>
+<li><code>label_gain</code> 可以被用来设置 <code>int</code> 标签的增益 (权重)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>boosting</code>, default=<code>gbdt</code>, type=enum, options=<code>gbdt</code>,<code>rf</code>,<code>dart</code>,<code>goss</code>, alias=<code>boost</code>,<code>boosting_type</code><ul>
+<li><code>gbdt</code>, 传统的梯度提升决策树</li>
+<li><code>rf</code>, Random Forest (随机森林)</li>
+<li><code>dart</code>, <a href="https://arxiv.org/abs/1505.01866" target="_blank" rel="noopener">Dropouts meet Multiple Additive Regression Trees</a></li>
+<li><code>goss</code>, Gradient-based One-Side Sampling (基于梯度的单侧采样)</li>
+</ul>
+</li>
+<li><code>data</code>, default=<code>&quot;&quot;</code>, type=string, alias=<code>train</code>,<code>train_data</code><ul>
+<li>训练数据, LightGBM 将会使用这个数据进行训练</li>
+</ul>
+</li>
+<li><code>valid</code>, default=<code>&quot;&quot;</code>, type=multi-string, alias=<code>test</code>,<code>valid_data</code>,<code>test_data</code><ul>
+<li>验证/测试 数据, LightGBM 将输出这些数据的度量</li>
+<li>支持多验证数据集, 以 <code>,</code> 分割</li>
+</ul>
+</li>
+<li><code>num_iterations</code>, default=<code>100</code>, type=int, alias=<code>num_iteration</code>,<code>num_tree</code>,<code>num_trees</code>,<code>num_round</code>,<code>num_rounds</code>,<code>num_boost_round</code><ul>
+<li>boosting 的迭代次数</li>
+<li><strong>Note</strong>: 对于 Python/R 包, <strong>这个参数是被忽略的</strong>, 使用 <code>train</code> and <code>cv</code> 的输入参数 <code>num_boost_round</code> (Python) or <code>nrounds</code> (R) 来代替</li>
+<li><strong>Note</strong>: 在内部, LightGBM 对于 <code>multiclass</code> 问题设置 <code>num_class * num_iterations</code> 棵树</li>
+</ul>
+</li>
+<li><code>learning_rate</code>, default=<code>0.1</code>, type=double, alias=<code>shrinkage_rate</code><ul>
+<li>shrinkage rate (收缩率)</li>
+<li>在 <code>dart</code> 中, 它还影响了 dropped trees 的归一化权重</li>
+</ul>
+</li>
+<li><code>num_leaves</code>, default=<code>31</code>, type=int, alias=<code>num_leaf</code><ul>
+<li>一棵树上的叶子数</li>
+</ul>
+</li>
+<li><code>tree_learner</code>, default=<code>serial</code>, type=enum, options=<code>serial</code>,<code>feature</code>,<code>data</code>,<code>voting</code>, alias=<code>tree</code><ul>
+<li><code>serial</code>, 单台机器的 tree learner</li>
+<li><code>feature</code>, alias=<code>feature_parallel</code>, 特征并行的 tree learner</li>
+<li><code>data</code>, alias=<code>data_parallel</code>, 数据并行的 tree learner</li>
+<li><code>voting</code>, alias=<code>voting_parallel</code>, 投票并行的 tree learner</li>
+<li>请阅读 <a href="http://lightgbm.apachecn.org/cn/latest/Parallel-Learning-Guide.html" target="_blank" rel="noopener">并行学习指南</a> 来了解更多细节</li>
+</ul>
+</li>
+<li><code>num_threads</code>, default=<code>OpenMP_default</code>, type=int, alias=<code>num_thread</code>,<code>nthread</code><ul>
+<li>LightGBM 的线程数</li>
+<li>为了更快的速度, 将此设置为真正的 CPU 内核数, 而不是线程的数量 (大多数 CPU 使用超线程来使每个 CPU 内核生成 2 个线程)</li>
+<li>当你的数据集小的时候不要将它设置的过大 (比如, 当数据集有 10,000 行时不要使用 64 线程)</li>
+<li>请注意, 任务管理器或任何类似的 CPU 监视工具可能会报告未被充分利用的内核. <strong>这是正常的</strong></li>
+<li>对于并行学习, 不应该使用全部的 CPU 内核, 因为这会导致网络性能不佳</li>
+</ul>
+</li>
+<li><code>device</code>, default=<code>cpu</code>, options=<code>cpu</code>,<code>gpu</code><ul>
+<li>为树学习选择设备, 你可以使用 GPU 来获得更快的学习速度</li>
+<li><strong>Note</strong>: 建议使用较小的 <code>max_bin</code> (e.g. 63) 来获得更快的速度</li>
+<li><strong>Note</strong>: 为了加快学习速度, GPU 默认使用32位浮点数来求和. 你可以设置 <code>gpu_use_dp=true</code> 来启用64位浮点数, 但是它会使训练速度降低</li>
+<li><strong>Note</strong>: 请参考 <a href="http://lightgbm.apachecn.org/cn/latest/Installation-Guide.html#build-gpu-version" target="_blank" rel="noopener">安装指南</a> 来构建 GPU 版本</li>
+</ul>
+</li>
+</ul>
+<h2 id="学习控制参数"><a href="#学习控制参数" class="headerlink" title="学习控制参数"></a>学习控制参数</h2><ul>
+<li><code>max_depth</code>, default=<code>-1</code>, type=int<ul>
+<li>限制树模型的最大深度. 这可以在 <code>#data</code> 小的情况下防止过拟合. 树仍然可以通过 leaf-wise 生长.</li>
+<li><code>&lt; 0</code> 意味着没有限制.</li>
+</ul>
+</li>
+<li><code>min_data_in_leaf</code>, default=<code>20</code>, type=int, alias=<code>min_data_per_leaf</code>,<code>min_data</code>,<code>min_child_samples</code><ul>
+<li>一个叶子上数据的最小数量. 可以用来处理过拟合.</li>
+</ul>
+</li>
+<li><code>min_sum_hessian_in_leaf</code>, default=<code>1e-3</code>, type=double, alias=<code>min_sum_hessian_per_leaf</code>,<code>min_sum_hessian</code>,<code>min_hessian</code>,<code>min_child_weight</code><ul>
+<li>一个叶子上的最小 hessian 和. 类似于 <code>min_data_in_leaf</code>, 可以用来处理过拟合.</li>
+</ul>
+</li>
+<li><code>feature_fraction</code>, default=<code>1.0</code>, type=double,<code>0.0 &lt; feature_fraction &lt; 1.0</code>, alias=<code>sub_feature</code>,<code>colsample_bytree</code><ul>
+<li>如果 <code>feature_fraction</code> 小于 <code>1.0</code>, LightGBM 将会在每次迭代中随机选择部分特征. 例如, 如果设置为 <code>0.8</code>, 将会在每棵树训练之前选择 80% 的特征</li>
+<li>可以用来加速训练</li>
+<li>可以用来处理过拟合</li>
+</ul>
+</li>
+<li><code>feature_fraction_seed</code>, default=<code>2</code>, type=int<ul>
+<li><code>feature_fraction</code> 的随机数种子</li>
+</ul>
+</li>
+<li><code>bagging_fraction</code>, default= <code>1.0</code>, type=double,<code>0.0 &lt; bagging_fraction &lt; 1.0</code>, alias=<code>sub_row</code>,<code>subsample</code><ul>
+<li>类似于 <code>feature_fraction</code>, 但是它将在不进行重采样的情况下随机选择部分数据</li>
+<li>可以用来加速训练</li>
+<li>可以用来处理过拟合</li>
+<li><strong>Note</strong>: 为了启用 bagging, <code>bagging_freq</code> 应该设置为非零值</li>
+</ul>
+</li>
+<li><code>bagging_freq</code>, default=<code>0</code>, type=int, alias=<code>subsample_freq</code><ul>
+<li>bagging 的频率, <code>0</code> 意味着禁用 bagging. <code>k</code> 意味着每 <code>k</code> 次迭代执行bagging</li>
+<li><strong>Note</strong>: 为了启用 bagging, <code>bagging_fraction</code> 设置适当</li>
+</ul>
+</li>
+<li><code>bagging_seed</code>, default=<code>3</code>, type=int, alias=<code>bagging_fraction_seed</code><ul>
+<li>bagging 随机数种子</li>
+</ul>
+</li>
+<li><code>early_stopping_round</code>, default=<code>0</code>, type=int, alias=<code>early_stopping_rounds</code>,<code>early_stopping</code><ul>
+<li>如果一个验证集的度量在 <code>early_stopping_round</code> 循环中没有提升, 将停止训练</li>
+</ul>
+</li>
+<li><code>lambda_l1</code>, default=<code>0</code>, type=double, alias=<code>reg_alpha</code><ul>
+<li>L1 正则</li>
+</ul>
+</li>
+<li><code>lambda_l2</code>, default=<code>0</code>, type=double, alias=<code>reg_lambda</code><ul>
+<li>L2 正则</li>
+</ul>
+</li>
+<li><code>min_split_gain</code>, default=<code>0</code>, type=double, alias=<code>min_gain_to_split</code><ul>
+<li>执行切分的最小增益</li>
+</ul>
+</li>
+<li><code>drop_rate</code>, default=<code>0.1</code>, type=double<ul>
+<li>仅仅在 <code>dart</code> 时使用</li>
+</ul>
+</li>
+<li><code>skip_drop</code>, default=<code>0.5</code>, type=double<ul>
+<li>仅仅在 <code>dart</code> 时使用, 跳过 drop 的概率</li>
+</ul>
+</li>
+<li><code>max_drop</code>, default=<code>50</code>, type=int<ul>
+<li>仅仅在 <code>dart</code> 时使用, 一次迭代中删除树的最大数量</li>
+<li><code>&lt;=0</code> 意味着没有限制</li>
+</ul>
+</li>
+<li><code>uniform_drop</code>, default=<code>false</code>, type=bool<ul>
+<li>仅仅在 <code>dart</code> 时使用, 如果想要均匀的删除, 将它设置为 <code>true</code></li>
+</ul>
+</li>
+<li><code>xgboost_dart_mode</code>, default=<code>false</code>, type=bool<ul>
+<li>仅仅在 <code>dart</code> 时使用, 如果想要使用 xgboost dart 模式, 将它设置为 <code>true</code></li>
+</ul>
+</li>
+<li><code>drop_seed</code>, default=<code>4</code>, type=int<ul>
+<li>仅仅在 <code>dart</code> 时使用, 选择 dropping models 的随机数种子</li>
+</ul>
+</li>
+<li><code>top_rate</code>, default=<code>0.2</code>, type=double<ul>
+<li>仅仅在 <code>goss</code> 时使用, 大梯度数据的保留比例</li>
+</ul>
+</li>
+<li><code>other_rate</code>, default=<code>0.1</code>, type=int<ul>
+<li>仅仅在 <code>goss</code> 时使用, 小梯度数据的保留比例</li>
+</ul>
+</li>
+<li><code>min_data_per_group</code>, default=<code>100</code>, type=int<ul>
+<li>每个分类组的最小数据量</li>
+</ul>
+</li>
+<li><code>max_cat_threshold</code>, default=<code>32</code>, type=int<ul>
+<li>用于分类特征</li>
+<li>限制分类特征的最大阈值</li>
+</ul>
+</li>
+<li><code>cat_smooth</code>, default=<code>10</code>, type=double<ul>
+<li>用于分类特征</li>
+<li>这可以降低噪声在分类特征中的影响, 尤其是对数据很少的类别</li>
+</ul>
+</li>
+<li><code>cat_l2</code>, default=<code>10</code>, type=double<ul>
+<li>分类切分中的 L2 正则</li>
+</ul>
+</li>
+<li><code>max_cat_to_onehot</code>, default=<code>4</code>, type=int<ul>
+<li>当一个特征的类别数小于或等于 <code>max_cat_to_onehot</code> 时, one-vs-other 切分算法将会被使用</li>
+</ul>
+</li>
+<li><code>top_k</code>, default=<code>20</code>, type=int, alias=<code>topk</code><ul>
+<li>被使用在 <a href="http://lightgbm.apachecn.org/cn/latest/Parallel-Learning-Guide.html#choose-appropriate-parallel-algorithm" target="_blank" rel="noopener">Voting parallel</a> 中</li>
+<li>将它设置为更大的值可以获得更精确的结果, 但会减慢训练速度</li>
+</ul>
+</li>
+</ul>
+<h2 id="IO-参数"><a href="#IO-参数" class="headerlink" title="IO 参数"></a>IO 参数</h2><ul>
+<li><code>max_bin</code>, default=<code>255</code>, type=int<ul>
+<li>工具箱的最大数特征值决定了容量 工具箱的最小数特征值可能会降低训练的准确性, 但是可能会增加一些一般的影响（处理过度学习）</li>
+<li>LightGBM 将根据 <code>max_bin</code> 自动压缩内存。 例如, 如果 maxbin=255, 那么 LightGBM 将使用 uint8t 的特性值</li>
+</ul>
+</li>
+<li><code>min_data_in_bin</code>, default=<code>3</code>, type=int - 单个数据箱的最小数, 使用此方法避免 one-data-one-bin（可能会过度学习）</li>
+<li><code>data_r和om_seed</code>, default=<code>1</code>, type=int<ul>
+<li>并行学习数据分隔中的随机种子 (不包括并行功能)</li>
+</ul>
+</li>
+<li><code>output_model</code>, default=<code>LightGBM_model.txt</code>, type=string, alias=<code>model_output</code>,<code></code>model_out`<ul>
+<li>训练中输出的模型文件名</li>
+</ul>
+</li>
+<li><code>input_model</code>, default=<code>&quot;&quot;</code>, type=string, alias=<code>model_input</code>,<code>model_in</code><ul>
+<li>输入模型的文件名</li>
+<li>对于 <code>prediction</code> 任务, 该模型将用于预测数据</li>
+<li>对于 <code>train</code> 任务, 训练将从该模型继续</li>
+</ul>
+</li>
+<li><code>output_result</code>, default=<code>LightGBM_predict_result.txt</code>, type=string, alias=<code>predict_result</code>,<code>prediction_result</code><ul>
+<li><code>prediction</code> 任务的预测结果文件名</li>
+</ul>
+</li>
+<li><code>model_format</code>, default=<code>text</code>, type=multi-enum, 可选项=<code>text</code>,<code>proto</code><ul>
+<li>保存和加载模型的格式</li>
+<li><code>text</code>, 使用文本字符串</li>
+<li><code>proto</code>, 使用协议缓冲二进制格式</li>
+<li>您可以通过使用逗号来进行多种格式的保存, 例如 <code>text,proto</code>. 在这种情况下, <code>model_format</code> 将作为后缀添加 <code>output_model</code></li>
+<li><strong>Note</strong>: 不支持多种格式的加载</li>
+<li><strong>Note</strong>: 要使用这个参数, 您需要使用 build 版本 &lt;./Installation-Guide.rst#protobuf-support&gt;`__</li>
+</ul>
+</li>
+<li><code>pre_partition</code>, default=<code>false</code>, type=bool, alias=<code>is_pre_partition</code><ul>
+<li>用于并行学习(不包括功能并行)</li>
+<li><code>true</code> 如果训练数据 pre-partitioned, 不同的机器使用不同的分区</li>
+</ul>
+</li>
+<li><code>is_sparse</code>, default=<code>true</code>, type=bool, alias=<code>is_enable_sparse</code>,<code>enable_sparse</code><ul>
+<li>用于 enable/disable 稀疏优化. 设置 <code>false</code> 就禁用稀疏优化</li>
+</ul>
+</li>
+<li><code>two_round</code>, default=<code>false</code>, type=bool, alias=<code>two_round_loading</code>,<code>use_two_round_loading</code><ul>
+<li>默认情况下, LightGBM 将把数据文件映射到内存, 并从内存加载特性。 这将提供更快的数据加载速度。但当数据文件很大时, 内存可能会耗尽</li>
+<li>如果数据文件太大, 不能放在内存中, 就把它设置为 <code>true</code></li>
+</ul>
+</li>
+<li><code>save_binary</code>, default=<code>false</code>, type=bool, alias=<code>is_save_binary</code>,<code>is_save_binary_file</code><ul>
+<li>如果设置为 <code>true</code> LightGBM 则将数据集(包括验证数据)保存到二进制文件中。 可以加快数据加载速度。</li>
+</ul>
+</li>
+<li><code>verbosity</code>, default=<code>1</code>, type=int, alias=<code>verbose</code><ul>
+<li><code>&lt;0</code> = 致命的, <code>=0</code> = 错误 (警告), <code>&gt;0</code> = 信息</li>
+</ul>
+</li>
+<li><code>header</code>, default=<code>false</code>, type=bool, alias=<code>has_header</code><ul>
+<li>如果输入数据有标识头, 则在此处设置 <code>true</code></li>
+</ul>
+</li>
+<li><p><code>label</code>, default=<code>&quot;&quot;</code>, type=string, alias=<code>label_column</code></p>
+<ul>
+<li>指定标签列</li>
+<li>用于索引的数字, e.g. <code>label=0</code> 意味着 column_0 是标签列</li>
+<li>为列名添加前缀 <code>name:</code> , e.g. <code>label=name:is_click</code></li>
+</ul>
+</li>
+<li><p><code>weight</code>, default=<code>&quot;&quot;</code>, type=string, alias=<code>weight_column</code></p>
+<ul>
+<li>列的指定</li>
+<li>用于索引的数字, e.g. <code>weight=0</code> 表示 column_0 是权重点</li>
+<li>为列名添加前缀 <code>name:</code>, e.g. <code>weight=name:weight</code></li>
+<li><strong>Note</strong>: 索引从 <code>0</code> 开始. 当传递 type 为索引时, 它不计算标签列, 例如当标签为 0 时, 权重为列 1, 正确的参数是权重值为 0</li>
+</ul>
+</li>
+<li><p><code>query</code>, default=<code>&quot;&quot;</code>, type=string, alias=<code>query_column</code>,<code>group</code>,<code>group_column</code></p>
+<ul>
+<li>指定 query/group ID 列</li>
+<li>用数字做索引, e.g. <code>query=0</code> 意味着 column_0 是这个查询的 Id</li>
+<li>为列名添加前缀 <code>name:</code> , e.g. <code>query=name:query_id</code></li>
+<li><strong>Note</strong>: 数据应按照 query_id. 索引从 <code>0</code> 开始. 当传递 type 为索引时, 它不计算标签列, 例如当标签为列 0, 查询 id 为列 1 时, 正确的参数是查询 =0</li>
+</ul>
+</li>
+<li><p><code>ignore_column</code>, default=<code>&quot;&quot;</code>, type=string, alias=<code>ignore_feature</code>,<code>blacklist</code></p>
+<ul>
+<li>在培训中指定一些忽略的列</li>
+<li>用数字做索引, e.g. <code>ignore_column=0,1,2</code> 意味着 column_0, column_1 和 column_2 将被忽略</li>
+<li>为列名添加前缀 <code>name:</code> , e.g. <code>ignore_column=name:c1,c2,c3</code> 意味着 c1, c2 和 c3 将被忽略</li>
+<li><strong>Note</strong>: 只在从文件直接加载数据的情况下工作</li>
+<li><strong>Note</strong>: 索引从 <code>0</code> 开始. 它不包括标签栏</li>
+</ul>
+</li>
+<li><p><code>categorical_feature</code>, default=<code>&quot;&quot;</code>, type=string, alias=<code>categorical_column</code>,<code>cat_feature</code>,<code>cat_column</code></p>
+<ul>
+<li>指定分类特征</li>
+<li>用数字做索引, e.g. <code>categorical_feature=0,1,2</code> 意味着 column_0, column_1 和 column_2 是分类特征</li>
+<li>为列名添加前缀 <code>name:</code>, e.g. <code>categorical_feature=name:c1,c2,c3</code> 意味着 c1, c2 和 c3 是分类特征</li>
+<li><strong>Note</strong>: 只支持分类与 <code>int</code> type. 索引从 <code>0</code> 开始. 同时它不包括标签栏</li>
+<li><strong>Note</strong>: 负值的值将被视为 <strong>missing values</strong></li>
+</ul>
+</li>
+<li><p><code>predict_raw_score</code>, default=<code>false</code>, type=bool, alias=<code>raw_score</code>,<code>is_predict_raw_score</code></p>
+<ul>
+<li>只用于 <code>prediction</code> 任务</li>
+<li>设置为 <code>true</code> 只预测原始分数</li>
+<li>设置为 <code>false</code> 只预测分数</li>
+</ul>
+</li>
+<li><p><code>predict_leaf_index</code>, default=<code>false</code>, type=bool, alias=<code>leaf_index</code>,<code>is_predict_leaf_index</code></p>
+<ul>
+<li>只用于 <code>prediction</code> 任务</li>
+<li>设置为 <code>true</code> to predict with leaf index of all trees</li>
+</ul>
+</li>
+<li><p><code>predict_contrib</code>, default=<code>false</code>, type=bool, alias=<code>contrib</code>,<code>is_predict_contrib</code></p>
+<ul>
+<li>只用于 <code>prediction</code> 任务</li>
+<li>设置为 <code>true</code> 预估 <a href="https://arxiv.org/abs/1706.06060" target="_blank" rel="noopener">SHAP values</a>, 这代表了每个特征对每个预测的贡献. 生成的特征+1的值, 其中最后一个值是模型输出的预期值, 而不是训练数据</li>
+</ul>
+</li>
+<li><p><code>bin_construct_sample_cnt</code>, default=<code>200000</code>, type=int, alias=<code>subsample_for_bin</code></p>
+<ul>
+<li>用来构建直方图的数据的数量</li>
+<li>在设置更大的数据时, 会提供更好的培训效果, 但会增加数据加载时间</li>
+<li>如果数据非常稀疏, 则将其设置为更大的值</li>
+</ul>
+</li>
+<li><p><code>num_iteration_predict</code>, default=<code>1</code>, type=int</p>
+<ul>
+<li>只用于 <code>prediction</code> 任务</li>
+<li>用于指定在预测中使用多少经过培训的迭代</li>
+<li><code>&lt;= 0</code> 意味着没有限制</li>
+</ul>
+</li>
+<li><p><code>pred_early_stop</code>, default=<code>false</code>, type=bool</p>
+<ul>
+<li>如果 <code>true</code> 将使用提前停止来加速预测。可能影响精度</li>
+</ul>
+</li>
+<li><p><code>pred_early_stop_freq</code>, default=<code>10</code>, type=int</p>
+<ul>
+<li>检查早期early-stopping的频率</li>
+</ul>
+</li>
+<li><p><code>pred_early_stop_margin</code>, default=<code>10.0</code>, type=double</p>
+<ul>
+<li>t提前early-stopping的边际阈值</li>
+</ul>
+</li>
+<li><p><code>use_missing</code>, default=<code>true</code>, type=bool</p>
+<ul>
+<li>设置为 <code>false</code> 禁用丢失值的特殊句柄</li>
+</ul>
+</li>
+<li><p><code>zero_as_missing</code>, default=<code>false</code>, type=bool</p>
+<ul>
+<li>设置为 <code>true</code> 将所有的0都视为缺失的值 (包括 libsvm/sparse 矩阵中未显示的值)</li>
+<li>设置为 <code>false</code> 使用 <code>na</code> 代表缺失值</li>
+</ul>
+</li>
+<li><p><code>init_score_file</code>, default=<code>&quot;&quot;</code>, type=string</p>
+<ul>
+<li>训练初始分数文件的路径, <code>&quot;&quot;</code> 将使用 <code>train_data_file</code> + <code>.init</code> (如果存在)</li>
+</ul>
+</li>
+<li><p><code>valid_init_score_file</code>, default=<code>&quot;&quot;</code>, type=multi-string</p>
+<ul>
+<li>验证初始分数文件的路径, <code>&quot;&quot;</code> 将使用 <code>valid_data_file</code> + <code>.init</code> (如果存在)</li>
+<li>通过 <code>,</code> 对multi-validation进行分离</li>
+</ul>
+</li>
+</ul>
+<h2 id="目标参数"><a href="#目标参数" class="headerlink" title="目标参数"></a>目标参数</h2><ul>
+<li><p><code>sigmoid</code>, default=<code>1.0</code>, type=double</p>
+<ul>
+<li>sigmoid 函数的参数. 将用于 <code>binary</code> 分类 和 <code>lambdarank</code></li>
+</ul>
+</li>
+<li><p><code>alpha</code>, default=<code>0.9</code>, type=double</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Huber_loss" target="_blank" rel="noopener">Huber loss</a> 和 <a href="https://en.wikipedia.org/wiki/Quantile_regression" target="_blank" rel="noopener">Quantile regression</a> 的参数. 将用于 <code>regression</code> 任务</li>
+</ul>
+</li>
+<li><p><code>fair_c</code>, default=<code>1.0</code>, type=double</p>
+<ul>
+<li><a href="https://www.kaggle.com/c/allstate-claims-severity/discussion/24520" target="_blank" rel="noopener">Fair loss</a> 的参数. 将用于 <code>regression</code> 任务</li>
+</ul>
+</li>
+<li><p><code>gaussian_eta</code>, default=<code>1.0</code>, type=double</p>
+<ul>
+<li>控制高斯函数的宽度的参数. 将用于 <code>regression_l1</code> 和 <code>huber</code> losses</li>
+</ul>
+</li>
+<li><p><code>poisson_max_delta_step</code>, default=`0.7, type=double</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Poisson_regression" target="_blank" rel="noopener">Poisson regression</a> 的参数用于维护优化</li>
+</ul>
+</li>
+<li><p><code>scale_pos_weight</code>, default=<code>1.0</code>, type=double</p>
+<ul>
+<li>正值的权重 <code>binary</code> 分类 任务</li>
+</ul>
+</li>
+<li><p><code>boost_from_average</code>, default=<code>true</code>, type=bool</p>
+<ul>
+<li>只用于 <code>regression</code> 任务</li>
+<li>将初始分数调整为更快收敛速度的平均值</li>
+</ul>
+</li>
+<li><p><code>is_unbalance</code>, default=<code>false</code>, type=bool, alias=<code>unbalanced_sets</code></p>
+<ul>
+<li>用于 <code>binary</code> 分类</li>
+<li>如果培训数据不平衡 设置为 <code>true</code></li>
+</ul>
+</li>
+<li><p><code>max_position</code>, default=<code>20</code>, type=int</p>
+<ul>
+<li>用于 <code>lambdarank</code></li>
+<li>将在这个 <a href="https://en.wikipedia.org/wiki/Discounted_cumulative_gain#Normalized_DCG" target="_blank" rel="noopener">NDCG</a> 位置优化</li>
+</ul>
+</li>
+<li><p><code>label_gain</code>, default=<code>0,1,3,7,15,31,63,...</code>, type=multi-double</p>
+<ul>
+<li>用于 <code>lambdarank</code></li>
+<li>有关获得标签. 列如, 如果使用默认标签增益 这个 <code>2</code> 的标签则是 <code>3</code></li>
+<li>使用 <code>,</code> 分隔</li>
+</ul>
+</li>
+<li><p><code>num_class</code>, default=<code>1</code>, type=int, alias=<code>num_classes</code></p>
+<ul>
+<li>只用于 <code>multiclass</code> 分类</li>
+</ul>
+</li>
+<li><p><code>reg_sqrt</code>, default=<code>false</code>, type=bool</p>
+<ul>
+<li>只用于 <code>regression</code></li>
+<li>适合<code>sqrt(label)</code> 相反, 预测结果也会自动转换成 <code>pow2(prediction)</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="度量参数"><a href="#度量参数" class="headerlink" title="度量参数"></a>度量参数</h2><ul>
+<li><code>metric</code>, default={<code>l2</code>for regression}, {<code>binary_logloss</code>for binary classification}, {<code>ndcg</code>for lambdarank}, type=multi-enum, options=<code>l1</code>,<code>l2</code>,<code>ndcg</code>,<code>auc</code>,<code>binary_logloss</code>,<code>binary_error</code>…<ul>
+<li><code>l1</code>, absolute loss, alias=<code>mean_absolute_error</code>, <code>mae</code></li>
+<li><code>l2</code>, square loss, alias=<code>mean_squared_error</code>, <code>mse</code></li>
+<li><code>l2_root</code>, root square loss, alias=<code>root_mean_squared_error</code>, <code>rmse</code></li>
+<li><code>quantile</code>, <a href="https://en.wikipedia.org/wiki/Quantile_regression" target="_blank" rel="noopener">Quantile regression</a></li>
+<li><code>huber</code>, <a href="https://en.wikipedia.org/wiki/Huber_loss" target="_blank" rel="noopener">Huber loss</a></li>
+<li><code>fair</code>, <a href="https://www.kaggle.com/c/allstate-claims-severity/discussion/24520" target="_blank" rel="noopener">Fair loss</a></li>
+<li><code>poisson</code>, <a href="https://en.wikipedia.org/wiki/Poisson_regression" target="_blank" rel="noopener">Poisson regression</a></li>
+<li><code>ndcg</code>, <a href="https://en.wikipedia.org/wiki/Discounted_cumulative_gain#Normalized_DCG" target="_blank" rel="noopener">NDCG</a></li>
+<li><code>map</code>, <a href="https://en.wikipedia.org/wiki/Information_retrieval#Mean_average_precision" target="_blank" rel="noopener">MAP</a></li>
+<li><code>auc</code>, <a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic#Area_under_the_curve" target="_blank" rel="noopener">AUC</a></li>
+<li><code>binary_logloss</code>, <a href="https://www.kaggle.com/wiki/LogLoss" target="_blank" rel="noopener">log loss</a></li>
+<li><code>binary_error</code>, 样本: <code>0</code> 的正确分类, <code>1</code> 错误分类</li>
+<li><code>multi_logloss</code>, mulit-class 损失日志分类</li>
+<li><code>multi_error</code>, error rate for mulit-class 出错率分类</li>
+<li><code>xentropy</code>, cross-entropy (与可选的线性权重), alias=<code>cross_entropy</code></li>
+<li><code>xentlambda</code>, “intensity-weighted” 交叉熵, alias=<code>cross_entropy_lambda</code></li>
+<li><code>kldiv</code>, <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence" target="_blank" rel="noopener">Kullback-Leibler divergence</a>, alias=<code>kullback_leibler</code></li>
+<li>支持多指标, 使用 <code>,</code> 分隔</li>
+</ul>
+</li>
+<li><code>metric_freq</code>, default=<code>1</code>, type=int<ul>
+<li>频率指标输出</li>
+</ul>
+</li>
+<li><code>train_metric</code>, default=<code>false</code>, type=bool, alias=<code>training_metric</code>,<br><code>is_training_metric</code><ul>
+<li>如果你需要输出训练的度量结果则设置 <code>true</code></li>
+</ul>
+</li>
+<li><code>ndcg_at</code>, default=<code>1,2,3,4,5</code>, type=multi-int, alias=<code>ndcg_eval_at</code>,<code>eval_at</code><ul>
+<li><a href="https://en.wikipedia.org/wiki/Discounted_cumulative_gain#Normalized_DCG" target="_blank" rel="noopener">NDCG</a> 职位评估, 使用 <code>,</code> 分隔</li>
+</ul>
+</li>
+</ul>
+<h2 id="网络参数"><a href="#网络参数" class="headerlink" title="网络参数"></a>网络参数</h2><p>以下参数用于并行学习, 只用于基本(socket)版本。</p>
+<ul>
+<li><p><code>num_machines</code>, default=<code>1</code>, type=int, alias=<code>num_machine</code></p>
+<ul>
+<li>用于并行学习的并行学习应用程序的数量</li>
+<li>需要在socket和mpi版本中设置这个</li>
+</ul>
+</li>
+<li><p><code>local_listen_port</code>, default=<code>12400</code>, type=int, alias=<code>local_port</code></p>
+<ul>
+<li>监听本地机器的TCP端口</li>
+<li>在培训之前, 您应该再防火墙设置中放开该端口</li>
+</ul>
+</li>
+<li><p><code>time_out</code>, default=<code>120</code>, type=int</p>
+<ul>
+<li>允许socket几分钟内超时</li>
+</ul>
+</li>
+<li><p><code>machine_list_file</code>, default=<code>&quot;&quot;</code>, type=string, alias=<code>mlist</code></p>
+<ul>
+<li>为这个并行学习应用程序列出机器的文件</li>
+<li>每一行包含一个IP和一个端口为一台机器。格式是ip port, 由空格分隔</li>
+</ul>
+</li>
+</ul>
+<h2 id="GPU-参数"><a href="#GPU-参数" class="headerlink" title="GPU 参数"></a>GPU 参数</h2><ul>
+<li><code>gpu_platform_id</code>, default=<code>-1</code>, type=int<ul>
+<li>OpenCL 平台 ID. 通常每个GPU供应商都会公开一个OpenCL平台。</li>
+<li>default为 <code>-1</code>, 意味着整个系统平台</li>
+</ul>
+</li>
+<li><p><code>gpu_device_id</code>, default=<code>-1</code>, type=int</p>
+<ul>
+<li>OpenCL设备ID在指定的平台上。 在选定的平台上的每一个GPU都有一个唯一的设备ID</li>
+<li>default为<code>-1</code>, 这个default意味着选定平台上的设备</li>
+</ul>
+</li>
+<li><p><code>gpu_use_dp</code>, default=<code>false</code>, type=bool</p>
+<ul>
+<li>设置为 <code>true</code> 在GPU上使用双精度GPU (默认使用单精度)</li>
+</ul>
+</li>
+</ul>
+<h2 id="模型参数"><a href="#模型参数" class="headerlink" title="模型参数"></a>模型参数</h2><p>该特性仅在命令行版本中得到支持。</p>
+<ul>
+<li><code>convert_model_language</code>, default=<code>&quot;&quot;</code>, type=string<ul>
+<li>只支持<code>cpp</code></li>
+<li>如果 <code>convert_model_language</code> 设置为 <code>task`</code>时 该模型也将转换为 <code></code>train`,</li>
+</ul>
+</li>
+<li><code>convert_model</code>, default=<code>&quot;gbdt_prediction.cpp&quot;</code>, type=string<ul>
+<li>转换模型的输出文件名</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LightGBM</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/LightGBM所有参数含义汇总/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
   
 
 
@@ -630,6 +1269,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LightGBM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
@@ -642,11 +1293,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据分析</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据分析</a>
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
             
             <div class="clearfix"></div>
